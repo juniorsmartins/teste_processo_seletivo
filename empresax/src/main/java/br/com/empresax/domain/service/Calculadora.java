@@ -1,8 +1,8 @@
 package br.com.empresax.domain.service;
 
 import br.com.empresax.domain.entities.Beneficiario;
-import br.com.empresax.domain.entities.Funcionario;
-import br.com.empresax.domain.entities.Vendedor;
+import br.com.empresax.domain.entities.funcionario.Funcionario;
+import br.com.empresax.domain.entities.funcionario.Vendedor;
 
 import java.util.List;
 

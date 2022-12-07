@@ -1,4 +1,4 @@
-package br.com.empresax.domain.dtos;
+package br.com.empresax.domain.dtos.funcionario;
 
 public record VendedorDTOResponse
     (

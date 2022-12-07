@@ -1,4 +1,4 @@
-package br.com.empresax.domain.dtos;
+package br.com.empresax.domain.dtos.funcionario;
 
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;

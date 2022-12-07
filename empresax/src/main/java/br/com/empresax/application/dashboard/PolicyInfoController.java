@@ -1,7 +1,7 @@
-package br.com.empresax.application;
+package br.com.empresax.application.dashboard;
 
-import br.com.empresax.domain.entities.Funcionario;
-import br.com.empresax.domain.entities.Vendedor;
+import br.com.empresax.domain.entities.funcionario.Funcionario;
+import br.com.empresax.domain.entities.funcionario.Vendedor;
 import org.springframework.http.ResponseEntity;
 
 public interface PolicyInfoController {

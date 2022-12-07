@@ -1,6 +1,6 @@
-package br.com.empresax.application;
+package br.com.empresax.application.funcionario;
 
-import br.com.empresax.domain.dtos.PolicyDTO;
+import br.com.empresax.domain.dtos.funcionario.PolicyDTO;
 import org.springframework.http.ResponseEntity;
 
 public interface PolicyCrudController<E extends PolicyDTO<ID>, S extends PolicyDTO<ID>, ID> {

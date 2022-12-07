@@ -1,10 +1,10 @@
 package br.com.empresax.domain.entities;
 
+import br.com.empresax.domain.entities.funcionario.Vendedor;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "vendas")

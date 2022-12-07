@@ -1,10 +1,12 @@
-package br.com.empresax.domain.entities;
+package br.com.empresax.domain.entities.funcionario;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(name = "funcionarios")
@@ -19,11 +21,11 @@ public abstract class Funcionario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long id;
+    protected Long id;
 
     @Column(name = "nome", length = 50, nullable = false)
-    private String nome;
+    protected String nome;
 
     @Column(name = "mes_ano_admissao", length = 7, nullable = false)
-    private String mesAnoAdmissao;
+    protected String mesAnoAdmissao;
 }
