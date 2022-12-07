@@ -7,5 +7,5 @@ public interface PolicyCrudController<E extends PolicyDTO<ID>, S extends PolicyD
 
     ResponseEntity<S> cadastrar(E dto);
     ResponseEntity<S> consultarPorId(ID id);
-    ResponseEntity<?> apagarPorId(ID id);
+    ResponseEntity<String> apagarPorId(ID id);
 }

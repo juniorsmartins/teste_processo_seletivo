@@ -41,9 +41,10 @@ public class SecretarioService implements PolicyCrudService<SecretarioDTORequest
     public String apagarPorId(Long id) {
         return this.repository.findById(id)
                 .map(secretario -> {
-                    this.repository.deleteById(id);
+                    this.repository.delete(secretario);
                     return MensagemPadrao.RECURSO_APAGADO;
                 })
                 .orElseThrow();
     }
 }
+

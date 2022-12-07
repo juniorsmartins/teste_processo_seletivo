@@ -1,41 +1,38 @@
 package br.com.empresax.domain.service.funcionario;
 
-import br.com.empresax.domain.dtos.funcionario.GerenteDTORequest;
-import br.com.empresax.domain.dtos.funcionario.GerenteDTOResponse;
-import br.com.empresax.domain.entities.funcionario.Gerente;
+import br.com.empresax.domain.dtos.funcionario.VendedorDTORequest;
+import br.com.empresax.domain.dtos.funcionario.VendedorDTOResponse;
+import br.com.empresax.domain.entities.funcionario.Vendedor;
 import br.com.empresax.domain.service.MensagemPadrao;
-import br.com.empresax.resources.funcionario.GerenteRepository;
+import br.com.empresax.resources.funcionario.VendedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
 @Service
-public class GerenteService implements PolicyCrudService<GerenteDTORequest, GerenteDTOResponse, Long> {
+public class VendedorService implements PolicyCrudService<VendedorDTORequest, VendedorDTOResponse, Long> {
 
     @Autowired
-    private GerenteRepository repository;
+    private VendedorRepository repository;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE)
     @Override
-    public GerenteDTOResponse cadastrar(GerenteDTORequest dto) {
+    public VendedorDTOResponse cadastrar(VendedorDTORequest dto) {
         return Optional.of(dto)
-                .map(Gerente::new)
-                .map(gerente -> this.repository.saveAndFlush(gerente))
-                .map(GerenteDTOResponse::new)
+                .map(Vendedor::new)
+                .map(vendedor -> this.repository.saveAndFlush(vendedor))
+                .map(VendedorDTOResponse::new)
                 .orElseThrow();
     }
 
     @Override
-    public GerenteDTOResponse consultarPorId(Long id) {
+    public VendedorDTOResponse consultarPorId(Long id) {
         return this.repository.findById(id)
-                .map(GerenteDTOResponse::new)
+                .map(VendedorDTOResponse::new)
                 .orElseThrow();
     }
 
@@ -43,8 +40,8 @@ public class GerenteService implements PolicyCrudService<GerenteDTORequest, Gere
     @Override
     public String apagarPorId(Long id) {
         return this.repository.findById(id)
-                .map(gerente -> {
-                    this.repository.delete(gerente);
+                .map(vendedor -> {
+                    this.repository.delete(vendedor);
                     return MensagemPadrao.RECURSO_APAGADO;
                 })
                 .orElseThrow();

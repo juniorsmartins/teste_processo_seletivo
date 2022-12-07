@@ -36,7 +36,7 @@ public class GerenteController implements PolicyCrudController<GerenteDTORequest
 
     @DeleteMapping(path = "/{id}")
     @Override
-    public ResponseEntity<?> apagarPorId(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<String> apagarPorId(@PathVariable(value = "id") Long id) {
         return ResponseEntity
                 .ok()
                 .body(this.service.apagarPorId(id));
