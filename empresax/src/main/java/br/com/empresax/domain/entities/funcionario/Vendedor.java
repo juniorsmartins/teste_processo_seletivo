@@ -2,7 +2,6 @@ package br.com.empresax.domain.entities.funcionario;
 
 import br.com.empresax.domain.dtos.funcionario.VendedorDTORequest;
 import br.com.empresax.domain.entities.Beneficiario;
-import br.com.empresax.domain.entities.CargoEnum;
 import br.com.empresax.domain.entities.PolicyEntity;
 import br.com.empresax.domain.entities.venda.Venda;
 import jakarta.persistence.*;

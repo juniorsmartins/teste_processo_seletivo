@@ -1,6 +1,5 @@
 package br.com.empresax.domain.entities.funcionario;
 
-import br.com.empresax.domain.entities.CargoEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "funcionarios")
@@ -27,8 +27,8 @@ public abstract class Funcionario implements Serializable {
     @Column(name = "nome", length = 50, nullable = false)
     protected String nome;
 
-    @Column(name = "mes_ano_admissao", length = 7, nullable = false)
-    protected String mesAnoAdmissao;
+    @Column(name = "mes_ano_admissao", nullable = false)
+    protected LocalDate mesAnoAdmissao;
 
     @Column(name = "cargo", length = 30, nullable = false)
     @Enumerated(EnumType.STRING)
