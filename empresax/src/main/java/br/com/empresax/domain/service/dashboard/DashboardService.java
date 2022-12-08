@@ -13,23 +13,39 @@ import java.util.List;
 @Service
 public class DashboardService implements PolicyDashboardService {
 
-    private double valorTotalPago;
+    private double valorRetorno;
 
     @Autowired
     private FuncionarioRepository funcionarioRepository;
 
     @Override
     public DashboardDTOResponse calcularPagamentoTotalDeSalariosAndBeneficiosDaListaDeFuncionariosNoMesAnoEspecificado(DashboardDTORequest request) {
-        valorTotalPago = 0D;
         calcularValorTotalPago(this.funcionarioRepository.findAll(), request);
-        return new DashboardDTOResponse(request.mesAnoPesquisado(), valorTotalPago);
+        return new DashboardDTOResponse(request.mesAnoPesquisado(), valorRetorno);
     }
 
         private void calcularValorTotalPago(List<Funcionario> funcionarios, DashboardDTORequest request) {
+            valorRetorno = 0D;
             funcionarios.forEach(funcionario -> {
                 if(funcionario.getMesAnoAdmissao().isBefore(request.mesAnoPesquisado())) {
-                    valorTotalPago += funcionario.getCargo().getSalarioMensal() * funcionario.getCargo().getBeneficio();
+                    valorRetorno += funcionario.getCargo().getSalarioMensal() * funcionario.getCargo().getBeneficio();
                 }
             });
         }
+
+    @Override
+    public DashboardDTOResponse calcularPagamentoTotalDeSalariosDaListaDeFuncionariosNoMesAnoEspecificado(DashboardDTORequest request) {
+        calcularValorSalarioPago(this.funcionarioRepository.findAll(), request);
+        return new DashboardDTOResponse(request.mesAnoPesquisado(), valorRetorno);
+    }
+
+        private void calcularValorSalarioPago(List<Funcionario> funcionarios, DashboardDTORequest request) {
+            valorRetorno = 0D;
+            funcionarios.forEach(funcionario -> {
+                if(funcionario.getMesAnoAdmissao().isBefore(request.mesAnoPesquisado())) {
+                    valorRetorno += funcionario.getCargo().getSalarioMensal();
+                }
+            });
+        }
+
 }

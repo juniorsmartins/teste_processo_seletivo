@@ -9,9 +9,10 @@ import org.springframework.http.ResponseEntity;
 public interface PolicyDashboardController {
 
     ResponseEntity<DashboardDTOResponse> calcularPagamentoTotalDeSalariosAndBeneficiosDaListaDeFuncionariosNoMesAnoEspecificado(DashboardDTORequest request);
+    ResponseEntity<DashboardDTOResponse> calcularPagamentoTotalDeSalariosDaListaDeFuncionariosNoMesAnoEspecificado(DashboardDTORequest request);
 
 
-    ResponseEntity<Double> calcularPagamentoTotalDeSalariosDaListaDeFuncionariosNoMesAnoEspecificado(String mesAno);
+
     ResponseEntity<Double> calcularPagamentoTotalDeBeneficiosDaListaDeBeneficiariosNoMesAnoEspecificado(String mesAno);
     ResponseEntity<Funcionario> encontrarMaiorPagamentoTotalDeSalarioAndBeneficioDalistaDeFuncionariosNoMesAnoEspecificado(String mesAno);
     ResponseEntity<String> encontrarNomeDeQuemRecebeuMaiorPagamentoDeBeneficioDaListaDeBeneficiariosNoMesAnoEspecificado(String mesAno);

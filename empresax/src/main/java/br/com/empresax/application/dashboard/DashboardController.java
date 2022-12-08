@@ -30,10 +30,12 @@ public class DashboardController implements PolicyDashboardController {
     }
 
 
-
+    @GetMapping(path = "/valorSalarioPago")
     @Override
-    public ResponseEntity<Double> calcularPagamentoTotalDeSalariosDaListaDeFuncionariosNoMesAnoEspecificado(String mesAno) {
-        return null;
+    public ResponseEntity<DashboardDTOResponse> calcularPagamentoTotalDeSalariosDaListaDeFuncionariosNoMesAnoEspecificado(@RequestBody @Valid DashboardDTORequest request) {
+        return ResponseEntity
+                .ok()
+                .body(this.service.calcularPagamentoTotalDeSalariosDaListaDeFuncionariosNoMesAnoEspecificado(request));
     }
 
     @Override

@@ -13,7 +13,7 @@ public record DashboardDTOResponse
         @JsonProperty("Data Pesquisada: ")
         LocalDate mesAnoPesquisado,
 
-        @JsonProperty("Valor total pago: ")
-        double valorTotalPago
+        @JsonProperty("Valor solicitado: ")
+        double valorRetorno
     ) implements PolicyDTO<Long>
 { }
