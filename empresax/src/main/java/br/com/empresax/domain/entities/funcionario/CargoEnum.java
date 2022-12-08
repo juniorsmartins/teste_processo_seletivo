@@ -29,13 +29,13 @@ public enum CargoEnum {
 
         if(funcionario.getMesAnoAdmissao().isBefore(dataPesquisada)) {
             var anosDeServico = ChronoUnit.YEARS.between(funcionario.getMesAnoAdmissao(), dataPesquisada);
-            var valorPorAnosDeServico = anosDeServico * funcionario.getCargo().getSalarioPorAnoDeServico();
-            var salarioMaisValorPorAnosDeServico = funcionario.getCargo().getSalarioMensal() + valorPorAnosDeServico;
+            var valorPorAnosDeServico = anosDeServico * this.getSalarioPorAnoDeServico();
+            var salarioMaisValorPorAnosDeServico = this.getSalarioMensal() + valorPorAnosDeServico;
 
             if(funcionario.getCargo().getNome().equalsIgnoreCase(CargoEnum.GERENTE.getNome())) {
-                return salarioMaisValorPorAnosDeServico * funcionario.getCargo().getBeneficio();
+                return salarioMaisValorPorAnosDeServico * this.getBeneficio();
             } else if(funcionario.getCargo().getNome().equalsIgnoreCase(CargoEnum.SECRETARIO.getNome())) {
-                return salarioMaisValorPorAnosDeServico * funcionario.getCargo().getBeneficio();
+                return salarioMaisValorPorAnosDeServico * this.getBeneficio();
             } else if(funcionario.getCargo().getNome().equalsIgnoreCase(CargoEnum.VENDEDOR.getNome())) {
                 var valorTotalVendas = 0d;
                 for (Venda venda : vendas) {
@@ -47,7 +47,7 @@ public enum CargoEnum {
                         }
                     }
                 }
-                var valorDoBeneficioSobreValorVendido = ((valorTotalVendas * funcionario.getCargo().getBeneficio()) - valorTotalVendas);
+                var valorDoBeneficioSobreValorVendido = ((valorTotalVendas * this.getBeneficio()) - valorTotalVendas);
                 return salarioMaisValorPorAnosDeServico + valorDoBeneficioSobreValorVendido;
             }
         }
