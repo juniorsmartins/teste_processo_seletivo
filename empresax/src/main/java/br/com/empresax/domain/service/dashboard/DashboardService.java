@@ -78,28 +78,27 @@ public class DashboardService implements PolicyDashboardService {
                     .calcularPagamentoDeBeneficio(beneficiario, request.mesAnoPesquisado(), this.vendaRepository.findAll()));
         }
 
-
-
-
-
-
     @Override
     public FuncionarioDTOResponse encontrarMaiorPagamentoTotalDeSalarioAndBeneficioDalistaDeFuncionariosNoMesAnoEspecificado(DashboardDTORequest request) {
         funcionarioMaisBemPago = null;
-        valorRetorno = 0D;
         calcularMaisBemPago(this.funcionarioRepository.findAll(), request);
-        return new FuncionarioDTOResponse(funcionarioMaisBemPago);
+        return new FuncionarioDTOResponse(funcionarioMaisBemPago, valorRetorno);
     }
 
         private void calcularMaisBemPago(List<Funcionario> funcionarios, DashboardDTORequest request) {
+            valorRetorno = 0D;
             funcionarios.forEach(funcionario -> {
-                if(funcionario.getMesAnoAdmissao().isBefore(request.mesAnoPesquisado())) {
-                    var somaSalarioBeneficio = funcionario.getCargo().getSalarioMensal() * funcionario.getCargo().getBeneficio();
-                    if(somaSalarioBeneficio > valorRetorno) {
-                        valorRetorno = somaSalarioBeneficio;
-                        funcionarioMaisBemPago = funcionario;
-                    }
+                var somaSalarioBeneficio = funcionario.getCargo()
+                        .calcularPagamentoTotal(funcionario, request.mesAnoPesquisado(), this.vendaRepository.findAll());
+                if(somaSalarioBeneficio > valorRetorno) {
+                    valorRetorno = somaSalarioBeneficio;
+                    funcionarioMaisBemPago = funcionario;
                 }
             });
         }
+
+
+
+
+
 }

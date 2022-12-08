@@ -14,10 +14,11 @@ public record FuncionarioDTOResponse
         Long id,
         String nome,
         LocalDate mesAnoAdmissao,
-        CargoEnum cargo
+        CargoEnum cargo,
+        double valorPago
     ) implements PolicyDTO<Long>
 {
-    public FuncionarioDTOResponse(Funcionario funcionario) {
-        this(funcionario.getId(), funcionario.getNome(), funcionario.getMesAnoAdmissao(), funcionario.getCargo());
+    public FuncionarioDTOResponse(Funcionario funcionario, double valorRetorno) {
+        this(funcionario.getId(), funcionario.getNome(), funcionario.getMesAnoAdmissao(), funcionario.getCargo(), valorRetorno);
     }
 }
