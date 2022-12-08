@@ -1,5 +1,6 @@
 package br.com.empresax.domain.dtos.funcionario;
 
+import br.com.empresax.domain.dtos.PolicyDTO;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 

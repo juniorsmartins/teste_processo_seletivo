@@ -1,5 +1,7 @@
-package br.com.empresax.domain.entities;
+package br.com.empresax.domain.entities.venda;
 
+import br.com.empresax.domain.dtos.venda.VendaDTORequest;
+import br.com.empresax.domain.entities.PolicyEntity;
 import br.com.empresax.domain.entities.funcionario.Vendedor;
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,7 +15,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
-public final class Venda implements Serializable {
+public final class Venda implements PolicyEntity<Long>, Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -30,4 +32,9 @@ public final class Venda implements Serializable {
     @ManyToOne
     @JoinColumn(name = "vendedor_id", referencedColumnName = "id", nullable = false)
     private Vendedor vendedor;
+
+    public Venda(VendaDTORequest dto) {
+        this.valor = dto.valor();
+        this.mesAnoVenda = dto.mesAnoVenda();
+    }
 }

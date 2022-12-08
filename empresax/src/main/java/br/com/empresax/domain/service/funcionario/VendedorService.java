@@ -4,6 +4,7 @@ import br.com.empresax.domain.dtos.funcionario.VendedorDTORequest;
 import br.com.empresax.domain.dtos.funcionario.VendedorDTOResponse;
 import br.com.empresax.domain.entities.funcionario.Vendedor;
 import br.com.empresax.domain.service.MensagemPadrao;
+import br.com.empresax.domain.service.PolicyCrudService;
 import br.com.empresax.resources.funcionario.VendedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
