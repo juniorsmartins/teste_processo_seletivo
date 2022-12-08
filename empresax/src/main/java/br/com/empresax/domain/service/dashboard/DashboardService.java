@@ -14,7 +14,6 @@ import br.com.empresax.resources.venda.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,9 +43,6 @@ public class DashboardService implements PolicyDashboardService {
             });
         }
 
-
-
-
     @Override
     public DashboardDTOResponse calcularPagamentoTotalDeSalariosDaListaDeFuncionariosNoMesAnoEspecificado(DashboardDTORequest request) {
         calcularValorSalarioPago(this.funcionarioRepository.findAll(), request);
@@ -55,11 +51,8 @@ public class DashboardService implements PolicyDashboardService {
 
         private void calcularValorSalarioPago(List<Funcionario> funcionarios, DashboardDTORequest request) {
             valorRetorno = 0D;
-            funcionarios.forEach(funcionario -> {
-                if(funcionario.getMesAnoAdmissao().isBefore(request.mesAnoPesquisado())) {
-                    valorRetorno += funcionario.getCargo().getSalarioMensal();
-                }
-            });
+            funcionarios.forEach(funcionario -> valorRetorno += funcionario.getCargo()
+                            .calcularPagamentoDeSalario(funcionario, request.mesAnoPesquisado()));
         }
 
     @Override
@@ -81,12 +74,14 @@ public class DashboardService implements PolicyDashboardService {
 
         private void calcularValorBeneficioPago(List<Beneficiario> beneficiarios, DashboardDTORequest request) {
             valorRetorno = 0D;
-            beneficiarios.forEach(beneficiario -> {
-                if(beneficiario.getMesAnoAdmissao().isBefore(request.mesAnoPesquisado())) {
-                    valorRetorno += ((beneficiario.getCargo().getSalarioMensal() * beneficiario.getCargo().getBeneficio() - beneficiario.getCargo().getSalarioMensal()));
-                }
-            });
+            beneficiarios.forEach(beneficiario -> valorRetorno += beneficiario.getCargo()
+                    .calcularPagamentoDeBeneficio(beneficiario, request.mesAnoPesquisado(), this.vendaRepository.findAll()));
         }
+
+
+
+
+
 
     @Override
     public FuncionarioDTOResponse encontrarMaiorPagamentoTotalDeSalarioAndBeneficioDalistaDeFuncionariosNoMesAnoEspecificado(DashboardDTORequest request) {

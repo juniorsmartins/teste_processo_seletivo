@@ -1,5 +1,6 @@
 package br.com.empresax.domain.entities.funcionario;
 
+import br.com.empresax.domain.entities.Beneficiario;
 import br.com.empresax.domain.entities.venda.Venda;
 import lombok.Getter;
 
@@ -40,7 +41,6 @@ public enum CargoEnum {
                 var valorTotalVendas = 0d;
                 for (Venda venda : vendas) {
                     if(funcionario.getId() == venda.getVendedor().getId()) {
-                        //TODO separar venda por data pesquisada
                         if(venda.getDataVenda().getMonthValue() == dataPesquisada.getMonthValue()
                                 && venda.getDataVenda().getYear() == dataPesquisada.getYear()) {
                             valorTotalVendas += venda.getValor();
@@ -49,6 +49,41 @@ public enum CargoEnum {
                 }
                 var valorDoBeneficioSobreValorVendido = ((valorTotalVendas * this.getBeneficio()) - valorTotalVendas);
                 return salarioMaisValorPorAnosDeServico + valorDoBeneficioSobreValorVendido;
+            }
+        }
+        return 0;
+    }
+
+    public double calcularPagamentoDeSalario(Funcionario funcionario, LocalDate dataPesquisada) {
+
+        if(funcionario.getMesAnoAdmissao().isBefore(dataPesquisada)) {
+            var anosDeServico = ChronoUnit.YEARS.between(funcionario.getMesAnoAdmissao(), dataPesquisada);
+            var valorPorAnosDeServico = anosDeServico * this.getSalarioPorAnoDeServico();
+            var salarioMaisValorPorAnosDeServico = this.getSalarioMensal() + valorPorAnosDeServico;
+            return salarioMaisValorPorAnosDeServico;
+        }
+        return 0;
+    }
+
+    public double calcularPagamentoDeBeneficio(Beneficiario beneficiario, LocalDate dataPesquisada, List<Venda> vendas) {
+
+        if(beneficiario.getMesAnoAdmissao().isBefore(dataPesquisada)) {
+            if(beneficiario.getCargo().equals(CargoEnum.VENDEDOR)) {
+                var valorTotalVendas = 0d;
+                for (Venda venda : vendas) {
+                    if(beneficiario.getId() == venda.getVendedor().getId()) {
+                        if(venda.getDataVenda().getMonthValue() == dataPesquisada.getMonthValue()
+                                && venda.getDataVenda().getYear() == dataPesquisada.getYear()) {
+                            valorTotalVendas += venda.getValor();
+                        }
+                    }
+                }
+                return ((valorTotalVendas * this.getBeneficio()) - valorTotalVendas);
+            } else {
+                var anosDeServico = ChronoUnit.YEARS.between(beneficiario.getMesAnoAdmissao(), dataPesquisada);
+                var valorPorAnosDeServico = anosDeServico * this.getSalarioPorAnoDeServico();
+                var salarioMaisValorPorAnosDeServico = this.getSalarioMensal() + valorPorAnosDeServico;
+                return ((salarioMaisValorPorAnosDeServico * this.getBeneficio()) - salarioMaisValorPorAnosDeServico);
             }
         }
         return 0;
