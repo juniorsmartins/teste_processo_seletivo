@@ -3,8 +3,8 @@ package br.com.empresax.application.dashboard;
 import br.com.empresax.application.PolicyDashboardController;
 import br.com.empresax.domain.dtos.dashboard.DashboardDTORequest;
 import br.com.empresax.domain.dtos.dashboard.DashboardDTOResponse;
-import br.com.empresax.domain.entities.funcionario.Funcionario;
-import br.com.empresax.domain.entities.funcionario.Vendedor;
+import br.com.empresax.domain.dtos.funcionario.FuncionarioDTOResponse;
+import br.com.empresax.domain.dtos.funcionario.VendedorDTOResponse;
 import br.com.empresax.domain.service.PolicyDashboardService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +29,10 @@ public class DashboardController implements PolicyDashboardController {
                 .body(this.service.calcularPagamentoTotalDeSalariosAndBeneficiosDaListaDeFuncionariosNoMesAnoEspecificado(request));
     }
 
+
+
+
+
     @GetMapping(path = "/valorSalarioPago")
     @Override
     public ResponseEntity<DashboardDTOResponse> calcularPagamentoTotalDeSalariosDaListaDeFuncionariosNoMesAnoEspecificado(@RequestBody @Valid DashboardDTORequest request) {
@@ -45,22 +49,25 @@ public class DashboardController implements PolicyDashboardController {
                 .body(this.service.calcularPagamentoTotalDeBeneficiosDaListaDeBeneficiariosNoMesAnoEspecificado(request));
     }
 
+    @GetMapping(path = "/maisBemPago")
+    @Override
+    public ResponseEntity<FuncionarioDTOResponse> encontrarMaiorPagamentoTotalDeSalarioAndBeneficioDalistaDeFuncionariosNoMesAnoEspecificado(@RequestBody @Valid DashboardDTORequest request) {
+        return ResponseEntity
+                .ok()
+                .body(this.service.encontrarMaiorPagamentoTotalDeSalarioAndBeneficioDalistaDeFuncionariosNoMesAnoEspecificado(request));
+    }
+
 
 
 
 
     @Override
-    public ResponseEntity<Funcionario> encontrarMaiorPagamentoTotalDeSalarioAndBeneficioDalistaDeFuncionariosNoMesAnoEspecificado(String mesAno) {
+    public ResponseEntity<String> encontrarNomeDeQuemRecebeuMaiorPagamentoDeBeneficioDaListaDeBeneficiariosNoMesAnoEspecificado(DashboardDTORequest request) {
         return null;
     }
 
     @Override
-    public ResponseEntity<String> encontrarNomeDeQuemRecebeuMaiorPagamentoDeBeneficioDaListaDeBeneficiariosNoMesAnoEspecificado(String mesAno) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Vendedor> encontrarMaiorValorDeVendasDaListaDeVendedoresNoMesAnoEspecificado(String mesAno) {
+    public ResponseEntity<VendedorDTOResponse> encontrarMaiorValorDeVendasDaListaDeVendedoresNoMesAnoEspecificado(DashboardDTORequest request) {
         return null;
     }
 }

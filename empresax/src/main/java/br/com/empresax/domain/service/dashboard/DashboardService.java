@@ -2,6 +2,7 @@ package br.com.empresax.domain.service.dashboard;
 
 import br.com.empresax.domain.dtos.dashboard.DashboardDTORequest;
 import br.com.empresax.domain.dtos.dashboard.DashboardDTOResponse;
+import br.com.empresax.domain.dtos.funcionario.FuncionarioDTOResponse;
 import br.com.empresax.domain.entities.Beneficiario;
 import br.com.empresax.domain.entities.funcionario.CargoEnum;
 import br.com.empresax.domain.entities.funcionario.Funcionario;
@@ -9,9 +10,11 @@ import br.com.empresax.domain.entities.funcionario.Secretario;
 import br.com.empresax.domain.entities.funcionario.Vendedor;
 import br.com.empresax.domain.service.PolicyDashboardService;
 import br.com.empresax.resources.funcionario.FuncionarioRepository;
+import br.com.empresax.resources.venda.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +22,13 @@ import java.util.List;
 public class DashboardService implements PolicyDashboardService {
 
     private double valorRetorno;
+    private Funcionario funcionarioMaisBemPago;
 
     @Autowired
     private FuncionarioRepository funcionarioRepository;
+
+    @Autowired
+    private VendaRepository vendaRepository;
 
     @Override
     public DashboardDTOResponse calcularPagamentoTotalDeSalariosAndBeneficiosDaListaDeFuncionariosNoMesAnoEspecificado(DashboardDTORequest request) {
@@ -32,11 +39,13 @@ public class DashboardService implements PolicyDashboardService {
         private void calcularValorTotalPago(List<Funcionario> funcionarios, DashboardDTORequest request) {
             valorRetorno = 0D;
             funcionarios.forEach(funcionario -> {
-                if(funcionario.getMesAnoAdmissao().isBefore(request.mesAnoPesquisado())) {
-                    valorRetorno += funcionario.getCargo().getSalarioMensal() * funcionario.getCargo().getBeneficio();
-                }
+                valorRetorno += funcionario.getCargo()
+                        .calcularPagamentoTotal(funcionario, request.mesAnoPesquisado(), this.vendaRepository.findAll());
             });
         }
+
+
+
 
     @Override
     public DashboardDTOResponse calcularPagamentoTotalDeSalariosDaListaDeFuncionariosNoMesAnoEspecificado(DashboardDTORequest request) {
@@ -75,6 +84,26 @@ public class DashboardService implements PolicyDashboardService {
             beneficiarios.forEach(beneficiario -> {
                 if(beneficiario.getMesAnoAdmissao().isBefore(request.mesAnoPesquisado())) {
                     valorRetorno += ((beneficiario.getCargo().getSalarioMensal() * beneficiario.getCargo().getBeneficio() - beneficiario.getCargo().getSalarioMensal()));
+                }
+            });
+        }
+
+    @Override
+    public FuncionarioDTOResponse encontrarMaiorPagamentoTotalDeSalarioAndBeneficioDalistaDeFuncionariosNoMesAnoEspecificado(DashboardDTORequest request) {
+        funcionarioMaisBemPago = null;
+        valorRetorno = 0D;
+        calcularMaisBemPago(this.funcionarioRepository.findAll(), request);
+        return new FuncionarioDTOResponse(funcionarioMaisBemPago);
+    }
+
+        private void calcularMaisBemPago(List<Funcionario> funcionarios, DashboardDTORequest request) {
+            funcionarios.forEach(funcionario -> {
+                if(funcionario.getMesAnoAdmissao().isBefore(request.mesAnoPesquisado())) {
+                    var somaSalarioBeneficio = funcionario.getCargo().getSalarioMensal() * funcionario.getCargo().getBeneficio();
+                    if(somaSalarioBeneficio > valorRetorno) {
+                        valorRetorno = somaSalarioBeneficio;
+                        funcionarioMaisBemPago = funcionario;
+                    }
                 }
             });
         }

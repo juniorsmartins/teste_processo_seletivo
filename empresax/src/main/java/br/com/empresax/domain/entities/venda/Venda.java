@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "vendas")
@@ -26,8 +27,8 @@ public final class Venda implements PolicyEntity<Long>, Serializable {
     @Column(name = "valor", nullable = false)
     private double valor;
 
-    @Column(name = "mes_ano_venda", length = 7, nullable = false)
-    private String mesAnoVenda;
+    @Column(name = "data_venda", nullable = false)
+    private LocalDate dataVenda;
 
     @ManyToOne
     @JoinColumn(name = "vendedor_id", referencedColumnName = "id", nullable = false)
@@ -35,6 +36,6 @@ public final class Venda implements PolicyEntity<Long>, Serializable {
 
     public Venda(VendaDTORequest dto) {
         this.valor = dto.valor();
-        this.mesAnoVenda = dto.mesAnoVenda();
+        this.dataVenda = dto.dataVenda();
     }
 }
