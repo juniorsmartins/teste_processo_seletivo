@@ -1,4 +1,4 @@
-package br.com.empresax.domain.entities;
+package br.com.empresax.domain.entities.funcionario;
 
 import lombok.Getter;
 
@@ -6,7 +6,7 @@ import lombok.Getter;
 public enum CargoEnum {
     SECRETARIO("Secretário", 7000D, 1000D, 1.2D),
     VENDEDOR("Vendedor", 12000D, 1800D, 1.3D),
-    GERENTE("Gerente", 20000D, 3000D, 0D);
+    GERENTE("Gerente", 20000D, 3000D, 1D);
 
     private String nome;
     private double salarioMensal;

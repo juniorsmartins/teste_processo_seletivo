@@ -1,10 +1,7 @@
 package br.com.empresax.domain.entities.funcionario;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -15,6 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Funcionario implements Serializable {
     private static final long serialVersionUID = 1L;
