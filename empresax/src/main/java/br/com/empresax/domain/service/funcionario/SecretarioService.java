@@ -4,6 +4,7 @@ import br.com.empresax.domain.dtos.funcionario.SecretarioDTORequest;
 import br.com.empresax.domain.dtos.funcionario.SecretarioDTOResponse;
 import br.com.empresax.domain.entities.funcionario.Secretario;
 import br.com.empresax.domain.service.MensagemPadrao;
+import br.com.empresax.domain.service.PolicyCrudService;
 import br.com.empresax.resources.funcionario.SecretarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

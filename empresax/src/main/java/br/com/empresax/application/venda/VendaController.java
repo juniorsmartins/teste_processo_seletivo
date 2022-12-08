@@ -1,8 +1,8 @@
-package br.com.empresax.application.funcionario;
+package br.com.empresax.application.venda;
 
 import br.com.empresax.application.PolicyCrudController;
-import br.com.empresax.domain.dtos.funcionario.GerenteDTORequest;
-import br.com.empresax.domain.dtos.funcionario.GerenteDTOResponse;
+import br.com.empresax.domain.dtos.venda.VendaDTORequest;
+import br.com.empresax.domain.dtos.venda.VendaDTOResponse;
 import br.com.empresax.domain.service.PolicyCrudService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "/gerentes", produces = {"application/json"})
-public class GerenteController implements PolicyCrudController<GerenteDTORequest, GerenteDTOResponse, Long> {
+@RequestMapping(value = "/vendas", produces = {"application/json"})
+public class VendaController implements PolicyCrudController<VendaDTORequest, VendaDTOResponse, Long> {
 
     @Autowired
-    private PolicyCrudService<GerenteDTORequest, GerenteDTOResponse, Long> service;
+    private PolicyCrudService<VendaDTORequest, VendaDTOResponse, Long> service;
 
     @PostMapping
     @Override
-    public ResponseEntity<GerenteDTOResponse> cadastrar(@RequestBody @Valid GerenteDTORequest dto) {
+    public ResponseEntity<VendaDTOResponse> cadastrar(@RequestBody @Valid VendaDTORequest dto) {
         var response = this.service.cadastrar(dto);
         return ResponseEntity
                 .created(URI.create("/" + response.id()))
@@ -29,7 +29,7 @@ public class GerenteController implements PolicyCrudController<GerenteDTORequest
 
     @GetMapping(path = "/{id}")
     @Override
-    public ResponseEntity<GerenteDTOResponse> consultarPorId(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<VendaDTOResponse> consultarPorId(@PathVariable(name = "id") Long id) {
         return ResponseEntity
                 .ok()
                 .body(this.service.consultarPorId(id));
@@ -37,7 +37,7 @@ public class GerenteController implements PolicyCrudController<GerenteDTORequest
 
     @DeleteMapping(path = "/{id}")
     @Override
-    public ResponseEntity<String> apagarPorId(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<String> apagarPorId(@PathVariable(name = "id") Long id) {
         return ResponseEntity
                 .ok()
                 .body(this.service.apagarPorId(id));

@@ -4,15 +4,13 @@ import br.com.empresax.domain.dtos.funcionario.GerenteDTORequest;
 import br.com.empresax.domain.dtos.funcionario.GerenteDTOResponse;
 import br.com.empresax.domain.entities.funcionario.Gerente;
 import br.com.empresax.domain.service.MensagemPadrao;
+import br.com.empresax.domain.service.PolicyCrudService;
 import br.com.empresax.resources.funcionario.GerenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 

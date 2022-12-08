@@ -1,8 +1,9 @@
 package br.com.empresax.application.funcionario;
 
+import br.com.empresax.application.PolicyCrudController;
 import br.com.empresax.domain.dtos.funcionario.SecretarioDTORequest;
 import br.com.empresax.domain.dtos.funcionario.SecretarioDTOResponse;
-import br.com.empresax.domain.service.funcionario.PolicyCrudService;
+import br.com.empresax.domain.service.PolicyCrudService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
