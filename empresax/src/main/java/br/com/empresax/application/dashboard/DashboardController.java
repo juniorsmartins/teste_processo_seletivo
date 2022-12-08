@@ -29,7 +29,6 @@ public class DashboardController implements PolicyDashboardController {
                 .body(this.service.calcularPagamentoTotalDeSalariosAndBeneficiosDaListaDeFuncionariosNoMesAnoEspecificado(request));
     }
 
-
     @GetMapping(path = "/valorSalarioPago")
     @Override
     public ResponseEntity<DashboardDTOResponse> calcularPagamentoTotalDeSalariosDaListaDeFuncionariosNoMesAnoEspecificado(@RequestBody @Valid DashboardDTORequest request) {
@@ -38,10 +37,17 @@ public class DashboardController implements PolicyDashboardController {
                 .body(this.service.calcularPagamentoTotalDeSalariosDaListaDeFuncionariosNoMesAnoEspecificado(request));
     }
 
+    @GetMapping(path = "/valorBeneficioPago")
     @Override
-    public ResponseEntity<Double> calcularPagamentoTotalDeBeneficiosDaListaDeBeneficiariosNoMesAnoEspecificado(String mesAno) {
-        return null;
+    public ResponseEntity<DashboardDTOResponse> calcularPagamentoTotalDeBeneficiosDaListaDeBeneficiariosNoMesAnoEspecificado(@RequestBody @Valid DashboardDTORequest request) {
+        return ResponseEntity
+                .ok()
+                .body(this.service.calcularPagamentoTotalDeBeneficiosDaListaDeBeneficiariosNoMesAnoEspecificado(request));
     }
+
+
+
+
 
     @Override
     public ResponseEntity<Funcionario> encontrarMaiorPagamentoTotalDeSalarioAndBeneficioDalistaDeFuncionariosNoMesAnoEspecificado(String mesAno) {
