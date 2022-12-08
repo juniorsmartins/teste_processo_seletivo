@@ -2,6 +2,7 @@ package br.com.empresax.domain.entities.funcionario;
 
 import br.com.empresax.domain.dtos.funcionario.SecretarioDTORequest;
 import br.com.empresax.domain.entities.Beneficiario;
+import br.com.empresax.domain.entities.PolicyEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;

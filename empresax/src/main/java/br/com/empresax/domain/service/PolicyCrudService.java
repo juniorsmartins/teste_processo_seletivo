@@ -1,6 +1,6 @@
-package br.com.empresax.domain.service.funcionario;
+package br.com.empresax.domain.service;
 
-import br.com.empresax.domain.dtos.funcionario.PolicyDTO;
+import br.com.empresax.domain.dtos.PolicyDTO;
 import org.springframework.stereotype.Service;
 
 @Service
