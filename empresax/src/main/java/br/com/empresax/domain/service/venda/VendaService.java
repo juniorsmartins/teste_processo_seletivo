@@ -3,6 +3,7 @@ package br.com.empresax.domain.service.venda;
 import br.com.empresax.domain.dtos.venda.VendaDTORequest;
 import br.com.empresax.domain.dtos.venda.VendaDTOResponse;
 import br.com.empresax.domain.entities.venda.Venda;
+import br.com.empresax.domain.service.MensagemPadrao;
 import br.com.empresax.domain.service.PolicyCrudService;
 import br.com.empresax.resources.funcionario.VendedorRepository;
 import br.com.empresax.resources.venda.VendaRepository;
@@ -38,12 +39,20 @@ public class VendaService implements PolicyCrudService<VendaDTORequest, VendaDTO
     }
 
     @Override
-    public VendaDTOResponse consultarPorId(Long aLong) {
-        return null;
+    public VendaDTOResponse consultarPorId(Long id) {
+        return this.repository.findById(id)
+                .map(VendaDTOResponse::new)
+                .orElseThrow();
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE)
     @Override
-    public String apagarPorId(Long aLong) {
-        return null;
+    public String apagarPorId(Long id) {
+        return this.repository.findById(id)
+                .map(venda -> {
+                    this.repository.delete(venda);
+                    return MensagemPadrao.RECURSO_APAGADO;
+                })
+                .orElseThrow();
     }
 }

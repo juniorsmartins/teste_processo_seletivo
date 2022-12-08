@@ -7,10 +7,7 @@ import br.com.empresax.domain.service.PolicyCrudService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -30,13 +27,19 @@ public class VendaController implements PolicyCrudController<VendaDTORequest, Ve
                 .body(response);
     }
 
+    @GetMapping(path = "/{id}")
     @Override
-    public ResponseEntity<VendaDTOResponse> consultarPorId(Long id) {
-        return null;
+    public ResponseEntity<VendaDTOResponse> consultarPorId(@PathVariable(name = "id") Long id) {
+        return ResponseEntity
+                .ok()
+                .body(this.service.consultarPorId(id));
     }
 
+    @DeleteMapping(path = "/{id}")
     @Override
-    public ResponseEntity<String> apagarPorId(Long id) {
-        return null;
+    public ResponseEntity<String> apagarPorId(@PathVariable(name = "id") Long id) {
+        return ResponseEntity
+                .ok()
+                .body(this.service.apagarPorId(id));
     }
 }
