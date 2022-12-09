@@ -36,11 +36,7 @@ public enum CargoEnum {
             var valorPorAnosDeServico = anosDeServico * this.getSalarioPorAnoDeServico();
             var salarioMaisValorPorAnosDeServico = this.getSalarioMensal() + valorPorAnosDeServico;
 
-            if(funcionario.getCargo().getNome().equalsIgnoreCase(CargoEnum.GERENTE.getNome())) {
-                return salarioMaisValorPorAnosDeServico * this.getBeneficio();
-            } else if(funcionario.getCargo().getNome().equalsIgnoreCase(CargoEnum.SECRETARIO.getNome())) {
-                return salarioMaisValorPorAnosDeServico * this.getBeneficio();
-            } else if(funcionario.getCargo().getNome().equalsIgnoreCase(CargoEnum.VENDEDOR.getNome())) {
+            if(funcionario instanceof Vendedor) {
                 var valorTotalVendas = 0d;
                 for (Venda venda : vendas) {
                     if(funcionario.getId() == venda.getVendedor().getId()) {
@@ -52,6 +48,8 @@ public enum CargoEnum {
                 }
                 var valorDoBeneficioSobreValorVendido = ((valorTotalVendas * this.getBeneficio()) - valorTotalVendas);
                 return salarioMaisValorPorAnosDeServico + valorDoBeneficioSobreValorVendido;
+            } else {
+                return salarioMaisValorPorAnosDeServico * this.getBeneficio();
             }
         }
         return 0;

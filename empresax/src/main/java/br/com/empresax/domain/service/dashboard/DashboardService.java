@@ -133,9 +133,6 @@ public class DashboardService implements PolicyDashboardService {
         }
 
     // ---------- FEATURE 5 ---------- //
-
-    // estoura quando não há vendas
-
     @Override
     public FuncionarioDTOResponse encontrarMaiorBeneficiarioDaListaDeBeneficiariosNaDataEspecificada(DashboardDTORequest request) {
         calcularMaiorBeneficiario(selecionarFuncionariosBeneficiarios(), request.dataPesquisada());
