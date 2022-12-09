@@ -1,5 +1,6 @@
 package br.com.empresax.domain.service.venda;
 
+import br.com.empresax.application.excecao.ResourceNotFoundCustomException;
 import br.com.empresax.domain.dtos.venda.VendaDTORequest;
 import br.com.empresax.domain.dtos.venda.VendaDTOResponse;
 import br.com.empresax.domain.entities.venda.Venda;
@@ -30,7 +31,8 @@ public class VendaService implements PolicyCrudService<VendaDTORequest, VendaDTO
         return Optional.of(dto)
                 .map(Venda::new)
                 .map(venda -> {
-                    var vendedor = this.vendedorRepository.findById(dto.vendedorId()).orElseThrow();
+                    var vendedor = this.vendedorRepository.findById(dto.vendedorId())
+                            .orElseThrow(() -> new ResourceNotFoundCustomException(MensagemPadrao.RECURSO_NAO_ENCONTRADO));
                     venda.setVendedor(vendedor);
                     return this.repository.saveAndFlush(venda);
                 })
@@ -42,7 +44,7 @@ public class VendaService implements PolicyCrudService<VendaDTORequest, VendaDTO
     public VendaDTOResponse consultarPorId(Long id) {
         return this.repository.findById(id)
                 .map(VendaDTOResponse::new)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundCustomException(MensagemPadrao.RECURSO_NAO_ENCONTRADO));
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE)
@@ -53,6 +55,6 @@ public class VendaService implements PolicyCrudService<VendaDTORequest, VendaDTO
                     this.repository.delete(venda);
                     return MensagemPadrao.RECURSO_APAGADO;
                 })
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundCustomException(MensagemPadrao.RECURSO_NAO_ENCONTRADO));
     }
 }
