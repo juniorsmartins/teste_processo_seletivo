@@ -1,6 +1,6 @@
-# Teste de Processo Seletivo à Cefet-MG
+# Teste de Processo Seletivo
 
-Applicação desenvolvida para atender requisitos de um processo seletivo para participar de projeto da Cefet-MG.
+Applicação desenvolvida para atender requisitos de um processo seletivo.
 
 ## Descrição
 
