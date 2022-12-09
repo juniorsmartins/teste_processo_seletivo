@@ -61,14 +61,11 @@ public class DashboardController implements PolicyDashboardController {
                 .body(this.service.encontrarMaiorBeneficiarioDaListaDeBeneficiariosNaDataEspecificada(request));
     }
 
-
-
-
-
-
-
+    @GetMapping(path = "/maiorVendedor")
     @Override
-    public ResponseEntity<VendedorDTOResponse> encontrarMaiorValorDeVendasDaListaDeVendedoresNoMesAnoEspecificado(DashboardDTORequest request) {
-        return null;
+    public ResponseEntity<VendedorDTOResponse> encontrarMaiorVendaDaListaDeVendedoresNaDataEspecificada(@RequestBody @Valid DashboardDTORequest request) {
+        return ResponseEntity
+                .ok()
+                .body(this.service.encontrarMaiorVendaDaListaDeVendedoresNaDataEspecificada(request));
     }
 }
