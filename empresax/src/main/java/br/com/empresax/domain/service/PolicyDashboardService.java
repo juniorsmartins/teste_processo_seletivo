@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 public interface PolicyDashboardService {
 
-    DashboardDTOResponse calcularPagamentoTotalDeSalariosAndBeneficiosDaListaDeFuncionariosNoMesAnoEspecificado(DashboardDTORequest request);
-    DashboardDTOResponse calcularPagamentoTotalDeSalariosDaListaDeFuncionariosNoMesAnoEspecificado(DashboardDTORequest request);
-    DashboardDTOResponse calcularPagamentoTotalDeBeneficiosDaListaDeBeneficiariosNoMesAnoEspecificado(DashboardDTORequest request);
-    FuncionarioDTOResponse encontrarMaiorPagamentoTotalDeSalarioAndBeneficioDalistaDeFuncionariosNoMesAnoEspecificado(DashboardDTORequest request);
-
+    DashboardDTOResponse somarSalariosAndBeneficiosDaListaDeFuncionariosNaDataEspecificada(DashboardDTORequest request);
+    DashboardDTOResponse somarSalariosDaListaDeFuncionariosNaDataEspecificada(DashboardDTORequest request);
+    DashboardDTOResponse somarBeneficiosDaListaDeBeneficiariosNaDataEspecificada(DashboardDTORequest request);
+    FuncionarioDTOResponse encontrarMaiorPagamentoDeSalarioAndBeneficioDalistaDeFuncionariosNaDataEspecificada(DashboardDTORequest request);
+    FuncionarioDTOResponse encontrarMaiorBeneficiarioDaListaDeBeneficiariosNaDataEspecificada(DashboardDTORequest request);
 }
 

@@ -26,7 +26,7 @@ public abstract class Funcionario implements Serializable {
     protected String nome;
 
     @Column(name = "mes_ano_admissao", nullable = false)
-    protected LocalDate mesAnoAdmissao;
+    public LocalDate mesAnoAdmissao;
 
     @Column(name = "cargo", length = 30, nullable = false)
     @Enumerated(EnumType.STRING)

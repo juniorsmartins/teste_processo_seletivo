@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public interface Beneficiario {
 
     Long getId();
+    String getNome();
     LocalDate getMesAnoAdmissao();
     CargoEnum getCargo();
 }

@@ -21,46 +21,51 @@ public class DashboardController implements PolicyDashboardController {
     @Autowired
     private PolicyDashboardService service;
 
-    @GetMapping(path = "/valorTotalPago")
+    @GetMapping(path = "/somarPagamentos")
     @Override
-    public ResponseEntity<DashboardDTOResponse> calcularPagamentoTotalDeSalariosAndBeneficiosDaListaDeFuncionariosNoMesAnoEspecificado(@RequestBody @Valid DashboardDTORequest request) {
+    public ResponseEntity<DashboardDTOResponse> somarSalariosAndBeneficiosDaListaDeFuncionariosNaDataEspecificada(@RequestBody @Valid DashboardDTORequest request) {
         return ResponseEntity
                 .ok()
-                .body(this.service.calcularPagamentoTotalDeSalariosAndBeneficiosDaListaDeFuncionariosNoMesAnoEspecificado(request));
+                .body(this.service.somarSalariosAndBeneficiosDaListaDeFuncionariosNaDataEspecificada(request));
     }
 
-    @GetMapping(path = "/valorSalarioPago")
+    @GetMapping(path = "/somarSalarios")
     @Override
-    public ResponseEntity<DashboardDTOResponse> calcularPagamentoTotalDeSalariosDaListaDeFuncionariosNoMesAnoEspecificado(@RequestBody @Valid DashboardDTORequest request) {
+    public ResponseEntity<DashboardDTOResponse> somarSalariosDaListaDeFuncionariosNaDataEspecificada(@RequestBody @Valid DashboardDTORequest request) {
         return ResponseEntity
                 .ok()
-                .body(this.service.calcularPagamentoTotalDeSalariosDaListaDeFuncionariosNoMesAnoEspecificado(request));
+                .body(this.service.somarSalariosDaListaDeFuncionariosNaDataEspecificada(request));
     }
 
-    @GetMapping(path = "/valorBeneficioPago")
+    @GetMapping(path = "/somarBeneficios")
     @Override
-    public ResponseEntity<DashboardDTOResponse> calcularPagamentoTotalDeBeneficiosDaListaDeBeneficiariosNoMesAnoEspecificado(@RequestBody @Valid DashboardDTORequest request) {
+    public ResponseEntity<DashboardDTOResponse> somarBeneficiosDaListaDeBeneficiariosNaDataEspecificada(@RequestBody @Valid DashboardDTORequest request) {
         return ResponseEntity
                 .ok()
-                .body(this.service.calcularPagamentoTotalDeBeneficiosDaListaDeBeneficiariosNoMesAnoEspecificado(request));
+                .body(this.service.somarBeneficiosDaListaDeBeneficiariosNaDataEspecificada(request));
     }
 
     @GetMapping(path = "/maisBemPago")
     @Override
-    public ResponseEntity<FuncionarioDTOResponse> encontrarMaiorPagamentoTotalDeSalarioAndBeneficioDalistaDeFuncionariosNoMesAnoEspecificado(@RequestBody @Valid DashboardDTORequest request) {
+    public ResponseEntity<FuncionarioDTOResponse> encontrarMaiorPagamentoDeSalarioAndBeneficioDalistaDeFuncionariosNaDataEspecificada(@RequestBody @Valid DashboardDTORequest request) {
         return ResponseEntity
                 .ok()
-                .body(this.service.encontrarMaiorPagamentoTotalDeSalarioAndBeneficioDalistaDeFuncionariosNoMesAnoEspecificado(request));
+                .body(this.service.encontrarMaiorPagamentoDeSalarioAndBeneficioDalistaDeFuncionariosNaDataEspecificada(request));
     }
 
-
-
-
-
+    @GetMapping(path = "/maiorBeneficiario")
     @Override
-    public ResponseEntity<String> encontrarNomeDeQuemRecebeuMaiorPagamentoDeBeneficioDaListaDeBeneficiariosNoMesAnoEspecificado(DashboardDTORequest request) {
-        return null;
+    public ResponseEntity<FuncionarioDTOResponse> encontrarMaiorBeneficiarioDaListaDeBeneficiariosNaDataEspecificada(@RequestBody @Valid DashboardDTORequest request) {
+        return ResponseEntity
+                .ok()
+                .body(this.service.encontrarMaiorBeneficiarioDaListaDeBeneficiariosNaDataEspecificada(request));
     }
+
+
+
+
+
+
 
     @Override
     public ResponseEntity<VendedorDTOResponse> encontrarMaiorValorDeVendasDaListaDeVendedoresNoMesAnoEspecificado(DashboardDTORequest request) {

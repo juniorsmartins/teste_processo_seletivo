@@ -8,13 +8,13 @@ import org.springframework.http.ResponseEntity;
 
 public interface PolicyDashboardController {
 
-    ResponseEntity<DashboardDTOResponse> calcularPagamentoTotalDeSalariosAndBeneficiosDaListaDeFuncionariosNoMesAnoEspecificado(DashboardDTORequest request);
-    ResponseEntity<DashboardDTOResponse> calcularPagamentoTotalDeSalariosDaListaDeFuncionariosNoMesAnoEspecificado(DashboardDTORequest request);
-    ResponseEntity<DashboardDTOResponse> calcularPagamentoTotalDeBeneficiosDaListaDeBeneficiariosNoMesAnoEspecificado(DashboardDTORequest request);
-    ResponseEntity<FuncionarioDTOResponse> encontrarMaiorPagamentoTotalDeSalarioAndBeneficioDalistaDeFuncionariosNoMesAnoEspecificado(DashboardDTORequest request);
+    ResponseEntity<DashboardDTOResponse> somarSalariosAndBeneficiosDaListaDeFuncionariosNaDataEspecificada(DashboardDTORequest request);
+    ResponseEntity<DashboardDTOResponse> somarSalariosDaListaDeFuncionariosNaDataEspecificada(DashboardDTORequest request);
+    ResponseEntity<DashboardDTOResponse> somarBeneficiosDaListaDeBeneficiariosNaDataEspecificada(DashboardDTORequest request);
+    ResponseEntity<FuncionarioDTOResponse> encontrarMaiorPagamentoDeSalarioAndBeneficioDalistaDeFuncionariosNaDataEspecificada(DashboardDTORequest request);
+    ResponseEntity<FuncionarioDTOResponse> encontrarMaiorBeneficiarioDaListaDeBeneficiariosNaDataEspecificada(DashboardDTORequest request);
 
 
 
-    ResponseEntity<String> encontrarNomeDeQuemRecebeuMaiorPagamentoDeBeneficioDaListaDeBeneficiariosNoMesAnoEspecificado(DashboardDTORequest request);
     ResponseEntity<VendedorDTOResponse> encontrarMaiorValorDeVendasDaListaDeVendedoresNoMesAnoEspecificado(DashboardDTORequest request);
 }
