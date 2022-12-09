@@ -9,15 +9,19 @@ import lombok.*;
 
 @Entity
 @Table(name = "gerentes")
-@NoArgsConstructor
 @Getter
 @Setter
 @PrimaryKeyJoinColumn(referencedColumnName = "id")
 public final class Gerente extends Funcionario implements PolicyEntity<Long> {
 
+    public Gerente() {
+        this.cargo = CargoEnum.GERENTE;
+    }
+
     public Gerente(GerenteDTORequest dto) {
         this.nome = dto.nome();
         this.mesAnoAdmissao = dto.mesAnoAdmissao();
+        this.cargo = CargoEnum.GERENTE;
     }
 }
 

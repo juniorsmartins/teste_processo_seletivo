@@ -11,7 +11,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "vendedores")
-@NoArgsConstructor
 @Getter
 @Setter
 @PrimaryKeyJoinColumn(referencedColumnName = "id")
@@ -20,8 +19,13 @@ public final class Vendedor extends Funcionario implements PolicyEntity<Long>, B
     @OneToMany(targetEntity = Venda.class, mappedBy = "vendedor", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Venda> vendas;
 
+    public Vendedor() {
+        this.cargo = CargoEnum.VENDEDOR;
+    }
+
     public Vendedor(VendedorDTORequest dto) {
         this.nome = dto.nome();
         this.mesAnoAdmissao = dto.mesAnoAdmissao();
+        this.cargo = CargoEnum.VENDEDOR;
     }
 }
