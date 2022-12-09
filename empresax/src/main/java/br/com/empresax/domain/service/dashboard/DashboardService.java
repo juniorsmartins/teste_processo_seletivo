@@ -133,9 +133,6 @@ public class DashboardService implements PolicyDashboardService {
         }
 
     // ---------- FEATURE 5 ---------- //
-
-    // estoura quando não há vendas
-
     @Override
     public FuncionarioDTOResponse encontrarMaiorBeneficiarioDaListaDeBeneficiariosNaDataEspecificada(DashboardDTORequest request) {
         calcularMaiorBeneficiario(selecionarFuncionariosBeneficiarios(), request.dataPesquisada());
@@ -149,14 +146,14 @@ public class DashboardService implements PolicyDashboardService {
                 var valorBeneficio = beneficiario.getCargo()
                         .calcularPagamentoDeBeneficio(beneficiario, dataPesquisada, vendasPorVendedor(beneficiario.getId()));
 
-                if(valorBeneficio == 0)
-                    throw new ResourceNotFoundCustomException("Nenhum benefício concedido!");
-
                 if(valorBeneficio > valorRetorno) {
                     valorRetorno = valorBeneficio;
                     beneficiarioMaisBemPago = beneficiario;
                 }
             });
+
+            if(valorRetorno == 0)
+                throw new ResourceNotFoundCustomException("Nenhum benefício concedido!");
         }
 
     // ---------- FEATURE 6 ---------- //
