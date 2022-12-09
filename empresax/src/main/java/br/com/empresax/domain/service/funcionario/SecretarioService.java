@@ -1,5 +1,6 @@
 package br.com.empresax.domain.service.funcionario;
 
+import br.com.empresax.application.excecao.ResourceNotFoundCustomException;
 import br.com.empresax.domain.dtos.funcionario.SecretarioDTORequest;
 import br.com.empresax.domain.dtos.funcionario.SecretarioDTOResponse;
 import br.com.empresax.domain.entities.funcionario.Secretario;
@@ -34,7 +35,7 @@ public class SecretarioService implements PolicyCrudService<SecretarioDTORequest
     public SecretarioDTOResponse consultarPorId(Long id) {
         return this.repository.findById(id)
                 .map(SecretarioDTOResponse::new)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundCustomException(MensagemPadrao.RECURSO_NAO_ENCONTRADO));
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE)
@@ -45,7 +46,7 @@ public class SecretarioService implements PolicyCrudService<SecretarioDTORequest
                     this.repository.delete(secretario);
                     return MensagemPadrao.RECURSO_APAGADO;
                 })
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundCustomException(MensagemPadrao.RECURSO_NAO_ENCONTRADO));
     }
 }
 

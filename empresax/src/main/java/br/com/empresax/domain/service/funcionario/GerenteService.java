@@ -1,5 +1,6 @@
 package br.com.empresax.domain.service.funcionario;
 
+import br.com.empresax.application.excecao.ResourceNotFoundCustomException;
 import br.com.empresax.domain.dtos.funcionario.GerenteDTORequest;
 import br.com.empresax.domain.dtos.funcionario.GerenteDTOResponse;
 import br.com.empresax.domain.entities.funcionario.Gerente;
@@ -34,7 +35,7 @@ public class GerenteService implements PolicyCrudService<GerenteDTORequest, Gere
     public GerenteDTOResponse consultarPorId(Long id) {
         return this.repository.findById(id)
                 .map(GerenteDTOResponse::new)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundCustomException(MensagemPadrao.RECURSO_NAO_ENCONTRADO));
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE)
@@ -45,6 +46,6 @@ public class GerenteService implements PolicyCrudService<GerenteDTORequest, Gere
                     this.repository.delete(gerente);
                     return MensagemPadrao.RECURSO_APAGADO;
                 })
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundCustomException(MensagemPadrao.RECURSO_NAO_ENCONTRADO));
     }
 }
