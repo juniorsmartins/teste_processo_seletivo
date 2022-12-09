@@ -3,6 +3,7 @@ package br.com.empresax.domain.service.dashboard;
 import br.com.empresax.domain.dtos.dashboard.DashboardDTORequest;
 import br.com.empresax.domain.dtos.dashboard.DashboardDTOResponse;
 import br.com.empresax.domain.dtos.funcionario.FuncionarioDTOResponse;
+import br.com.empresax.domain.dtos.funcionario.VendedorDTOResponse;
 import br.com.empresax.domain.entities.Beneficiario;
 import br.com.empresax.domain.entities.funcionario.CargoEnum;
 import br.com.empresax.domain.entities.funcionario.Funcionario;
@@ -10,6 +11,7 @@ import br.com.empresax.domain.entities.funcionario.Secretario;
 import br.com.empresax.domain.entities.funcionario.Vendedor;
 import br.com.empresax.domain.service.PolicyDashboardService;
 import br.com.empresax.resources.funcionario.FuncionarioRepository;
+import br.com.empresax.resources.funcionario.VendedorRepository;
 import br.com.empresax.resources.venda.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +25,15 @@ public class DashboardService implements PolicyDashboardService {
     private double valorRetorno;
     private Funcionario funcionarioMaisBemPago;
     private Beneficiario beneficiarioMaisBemPago;
+    private Vendedor maiorVendedor;
+    private double somaVendas;
+    private double maiorSomaVendas;
 
     @Autowired
     private FuncionarioRepository funcionarioRepository;
+
+    @Autowired
+    private VendedorRepository vendedorRepository;
 
     @Autowired
     private VendaRepository vendaRepository;
@@ -127,6 +135,32 @@ public class DashboardService implements PolicyDashboardService {
             });
         }
 
+    @Override
+    public VendedorDTOResponse encontrarMaiorVendaDaListaDeVendedoresNaDataEspecificada(DashboardDTORequest request) {
+        return new VendedorDTOResponse(calcularMaiorVendedor(this.vendedorRepository.findAll(), request));
+    }
 
+        private Vendedor calcularMaiorVendedor(List<Vendedor> vendedores, DashboardDTORequest request) {
+            maiorSomaVendas = 0d;
 
+            vendedores.forEach(vendedor -> {
+               if(vendedor.getMesAnoAdmissao().getMonthValue() <= request.mesAnoPesquisado().getMonthValue() &&
+                   vendedor.getMesAnoAdmissao().getYear() <= request.mesAnoPesquisado().getYear()) {
+                   somaVendas = 0d;
+                   this.vendaRepository.findAllByVendedorId(vendedor.getId()).forEach(venda -> {
+                       if(venda.getDataVenda().getMonthValue() == request.mesAnoPesquisado().getMonthValue()
+                               && venda.getDataVenda().getYear() == request.mesAnoPesquisado().getYear()) {
+                           somaVendas += venda.getValor();
+                       }
+                   });
+               }
+
+               if(somaVendas > maiorSomaVendas) {
+                   maiorSomaVendas = somaVendas;
+                   maiorVendedor = null;
+                   maiorVendedor = vendedor;
+               }
+            });
+            return maiorVendedor;
+        }
 }

@@ -13,8 +13,5 @@ public interface PolicyDashboardController {
     ResponseEntity<DashboardDTOResponse> somarBeneficiosDaListaDeBeneficiariosNaDataEspecificada(DashboardDTORequest request);
     ResponseEntity<FuncionarioDTOResponse> encontrarMaiorPagamentoDeSalarioAndBeneficioDalistaDeFuncionariosNaDataEspecificada(DashboardDTORequest request);
     ResponseEntity<FuncionarioDTOResponse> encontrarMaiorBeneficiarioDaListaDeBeneficiariosNaDataEspecificada(DashboardDTORequest request);
-
-
-
-    ResponseEntity<VendedorDTOResponse> encontrarMaiorValorDeVendasDaListaDeVendedoresNoMesAnoEspecificado(DashboardDTORequest request);
+    ResponseEntity<VendedorDTOResponse> encontrarMaiorVendaDaListaDeVendedoresNaDataEspecificada(DashboardDTORequest request);
 }
