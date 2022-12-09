@@ -10,14 +10,18 @@ import lombok.*;
 
 @Entity
 @Table(name = "secretarios")
-@NoArgsConstructor
 @Getter
 @Setter
 @PrimaryKeyJoinColumn(referencedColumnName = "id")
 public final class Secretario extends Funcionario implements PolicyEntity<Long>, Beneficiario {
 
+    public Secretario() {
+        this.cargo = CargoEnum.SECRETARIO;
+    }
+
     public Secretario(SecretarioDTORequest dto) {
         this.nome = dto.nome();
         this.mesAnoAdmissao = dto.mesAnoAdmissao();
+        this.cargo = CargoEnum.SECRETARIO;
     }
 }

@@ -1,10 +1,16 @@
 package br.com.empresax.domain.dtos.venda;
 
 import br.com.empresax.domain.dtos.PolicyDTO;
-import jakarta.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
-import org.hibernate.validator.constraints.Length;
+
+import java.time.LocalDate;
 
 public record VendaDTORequest
     (
@@ -12,9 +18,12 @@ public record VendaDTORequest
         @Positive
         double valor,
 
-        @NotBlank
-        @Length(max = 7)
-        String mesAnoVenda,
+        @NotNull
+        @PastOrPresent
+        @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
+        @JsonDeserialize(using = LocalDateDeserializer.class)
+        @JsonSerialize(using = LocalDateSerializer.class)
+        LocalDate dataVenda,
 
         @NotNull
         Long vendedorId
