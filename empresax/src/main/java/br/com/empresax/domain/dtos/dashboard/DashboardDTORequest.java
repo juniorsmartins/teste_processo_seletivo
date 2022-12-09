@@ -18,6 +18,6 @@ public record DashboardDTORequest
         @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
         @JsonDeserialize(using = LocalDateDeserializer.class)
         @JsonSerialize(using = LocalDateSerializer.class)
-        LocalDate mesAnoPesquisado
+        LocalDate dataPesquisada
     ) implements PolicyDTO<Long>
 { }

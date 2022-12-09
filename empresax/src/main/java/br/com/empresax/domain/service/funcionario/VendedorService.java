@@ -1,5 +1,6 @@
 package br.com.empresax.domain.service.funcionario;
 
+import br.com.empresax.application.excecao.ResourceNotFoundCustomException;
 import br.com.empresax.domain.dtos.funcionario.VendedorDTORequest;
 import br.com.empresax.domain.dtos.funcionario.VendedorDTOResponse;
 import br.com.empresax.domain.entities.funcionario.Vendedor;
@@ -34,7 +35,7 @@ public class VendedorService implements PolicyCrudService<VendedorDTORequest, Ve
     public VendedorDTOResponse consultarPorId(Long id) {
         return this.repository.findById(id)
                 .map(VendedorDTOResponse::new)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundCustomException(MensagemPadrao.RECURSO_NAO_ENCONTRADO));
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE)
@@ -45,6 +46,6 @@ public class VendedorService implements PolicyCrudService<VendedorDTORequest, Ve
                     this.repository.delete(vendedor);
                     return MensagemPadrao.RECURSO_APAGADO;
                 })
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundCustomException(MensagemPadrao.RECURSO_NAO_ENCONTRADO));
     }
 }
