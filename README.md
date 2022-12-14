@@ -4,7 +4,7 @@ Applicação desenvolvida para atender requisitos de um processo seletivo.
 
 ## Descrição
 
-Em breve...
+Aprovado! Contratado!
 
 
 
